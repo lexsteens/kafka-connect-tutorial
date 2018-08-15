@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:4.0.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 32181
+      ZOOKEEPER_TICK_TIME: 2000
+    network_mode: "host"
+
+  kafka:
+    image: confluentinc/cp-kafka:4.0.0
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "localhost:32181"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:29092"
+    network_mode: "host"
+    depends_on:
+      - zookeeper
+
+  schemaregistry:
+    image: confluentinc/cp-schema-registry:4.0.0
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "localhost:32181"
+      SCHEMA_REGISTRY_HOST_NAME: "localhsot"
+      SCHEMA_REGISTRY_LISTENERS: "http://localhost:8082"
+    network_mode: "host"
+    depends_on:
+      - kafka
