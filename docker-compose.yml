@@ -59,3 +59,11 @@ services:
       - zookeeper
       - kafka
       - schemaregistry
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "confluent"
+      MYSQL_USER: "confluent"
+      MYSQL_PASSWORD: "confluent"
+    network_mode: "host"
