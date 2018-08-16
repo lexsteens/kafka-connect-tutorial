@@ -13,6 +13,7 @@ services:
     environment:
       KAFKA_ZOOKEEPER_CONNECT: "localhost:32181"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:29092"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     network_mode: "host"
     depends_on:
       - zookeeper
@@ -22,7 +23,39 @@ services:
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "localhost:32181"
       SCHEMA_REGISTRY_HOST_NAME: "localhsot"
-      SCHEMA_REGISTRY_LISTENERS: "http://localhost:8082"
+      SCHEMA_REGISTRY_LISTENERS: "http://localhost:8081"
     network_mode: "host"
     depends_on:
+      - zookeeper
       - kafka
+
+  kafkaconnect:
+    image: confluentinc/cp-kafka-connect:4.0.0
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "localhost:29092"
+      CONNECT_REST_PORT: 28083
+      CONNECT_GROUP_ID: "quickstart-avro"
+      CONNECT_CONFIG_STORAGE_TOPIC: "quickstart-avro-config"
+      CONNECT_OFFSET_STORAGE_TOPIC: "quickstart-avro-offsets"
+      CONNECT_STATUS_STORAGE_TOPIC: "quickstart-avro-status"
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      CONNECT_VALUE_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: "https://localhost:8081"
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "https://localhost:8081"
+      CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
+      CONNECT_LOG4J_ROOT_LOGLEVEL: "DEBUG"
+      CONNECT_LOG4J_LOGGERS: "org.reflections=ERROR"
+      CONNECT_PLUGIN_PATH: "/usr/share/java,/etc/kafka-connect/jars"
+    volumes:
+      - ./files:/tmp/quickstart
+      - ./jars:/etc/kafka-connect/jars
+    network_mode: "host"
+    depends_on:
+      - zookeeper
+      - kafka
+      - schemaregistry

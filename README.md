@@ -1,1 +1,1 @@
-Following https://docs.confluent.io/3.2.0/cp-docker-images/docs/tutorials/connect-avro-jdbc.html
+Following https://docs.confluent.io/4.0.0/installation/docker/docs/tutorials/connect-avro-jdbc.html
