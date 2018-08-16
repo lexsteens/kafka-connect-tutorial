@@ -1,25 +1,21 @@
 Following https://docs.confluent.io/4.0.0/installation/docker/docs/tutorials/connect-avro-jdbc.html
 
 Launch zookeeper docker: 
-
 ```
 docker-compose up -d zookeeper
 ```
 
 Wait for zookeeper to be up, then launch kafka docker: 
-
 ```
 docker-compose up -d kafka
 ```
 
-Wait for kafka to be up, then launch the schemaregistry docker: 
-
+Wait for kafka to be up, then launch the schema registry docker: 
 ```
 docker-compose up -d mysql
 ```
 
 Create the necessary topics for kafka connect:
-
 ```
 ./create-topics.sh quickstart-avro-offsets
 ./create-topics.sh quickstart-avro-config
@@ -27,16 +23,16 @@ Create the necessary topics for kafka connect:
 ```
 
 Check that the topics have been created:
-
 ```
 ./list-topics.sh
 ```
 
-
-
+Launch kafka connect docker: 
+```
+docker-compose up -d kafkaconnect
+```
 
 Launch mysql docker: 
-
 ```
 docker-compose up -d mysql
 ```
