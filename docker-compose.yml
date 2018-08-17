@@ -61,9 +61,10 @@ services:
       - schemaregistry
 
   mysql:
-    image: mysql
+    image: mysql:8.0.12
     environment:
       MYSQL_ROOT_PASSWORD: "confluent"
       MYSQL_USER: "confluent"
       MYSQL_PASSWORD: "confluent"
+      MYSQL_DATABASE: "connect_test"
     network_mode: "host"
