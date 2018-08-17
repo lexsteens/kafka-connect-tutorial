@@ -1,4 +1,6 @@
 Following https://docs.confluent.io/4.0.0/installation/docker/docs/tutorials/connect-avro-jdbc.html
+`!!!` The mysql docker version is not fixed, resulting in inconsistency between the downloaded jdbc driver and the mysql server.
+In this code, we have changed the downloaded jdbc driver and fixed the mysql docker version to 8.0.12
 
 Launch zookeeper docker: 
 ```
@@ -40,4 +42,9 @@ docker-compose up -d mysql
 Wait for it to finish booting, then create the connect_test database and fill it with sample data:
 ```
 ./fill_db.sh
+```
+
+Register the source:
+```
+./register-jdbc-source.sh
 ```
