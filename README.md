@@ -15,7 +15,7 @@ docker-compose up -d kafka
 
 Wait for kafka to be up, then launch the schema registry docker: 
 ```
-docker-compose up -d mysql
+docker-compose up -d schemaregistry
 ```
 
 Create the necessary topics for kafka connect:
