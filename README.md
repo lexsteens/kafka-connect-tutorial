@@ -1,4 +1,5 @@
 Following https://docs.confluent.io/4.0.0/installation/docker/docs/tutorials/connect-avro-jdbc.html
+
 `!!!` The mysql docker version is not fixed, resulting in inconsistency between the downloaded jdbc driver and the mysql server.
 In this code, we have changed the downloaded jdbc driver and fixed the mysql docker version to 8.0.12
 
