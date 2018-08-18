@@ -3,6 +3,15 @@ Following https://docs.confluent.io/4.0.0/installation/docker/docs/tutorials/con
 `!!!` The mysql docker version is not fixed, resulting in inconsistency between the downloaded jdbc driver and the mysql server.
 In this code, we have changed the downloaded jdbc driver and fixed the mysql docker version to 8.0.12
 
+# Launching automatically:
+
+Launch the following command:
+```
+./launch.sh
+```
+
+# Launching manually:
+
 Launch zookeeper docker: 
 ```
 docker-compose up -d zookeeper

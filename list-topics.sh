@@ -1,1 +1,1 @@
-docker-compose exec kafka kafka-topics --list --zookeeper localhost:32181
+docker-compose exec kafka kafka-topics --list --zookeeper zookeeper:32181
